@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Piace Rengo | Trattoria Italiana, Pastas, Pizzas & Delivery</title>
+    <meta name="description" content="Mi Piace Rengo - Auténtica trattoria italiana en Rengo desde 2014. Pizzas a la piedra, pastas artesanales, risottos, carnes y delivery online.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        italiana: ['Cinzel', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        italy: {
+                            green: '#008C45',
+                            white: '#F4F5F0',
+                            red: '#CD212A',
+                            dark: '#0f1115',
+                            card: '#181b22',
+                            border: '#2a2f3a',
+                            cream: '#fdfbf7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f1115; color: #f3f4f6; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-italiana { font-family: 'Cinzel', serif; }
+        .font-script { font-family: 'Great Vibes', cursive; }
+        .italy-bar {
+            background: linear-gradient(90deg, #008C45 33.33%, #F4F5F0 33.33%, #F4F5F0 66.66%, #CD212A 66.66%);
+            height: 4px;
+            width: 100%;
+        }
+        .transition-click {
+            transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+        }
+        .transition-click:active {
+            transform: scale(0.95);
+        }
+        #menu-grid {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #cart-modal {
+            transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+        }
+        .blend-logo {
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body class="bg-italy-dark text-gray-100 antialiased selection:bg-italy-red selection:text-white">
+
+    <!-- Top Italian Flag Accent Bar -->
+    <div class="italy-bar fixed top-0 left-0 right-0 z-50"></div>
+
+    <!-- TOP HEADER / NAV BAR -->
+    <header class="sticky top-1 z-40 bg-italy-dark/95 backdrop-blur-md border-b border-italy-border shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Official Logo in Header -->
+            <div class="flex items-center cursor-pointer group py-2" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo Logo" class="h-14 sm:h-16 w-auto object-contain blend-logo group-hover:scale-105 transition-transform duration-300">
+            </div>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-300 font-italiana">
+                <a href="#menu" class="hover:text-italy-green transition">Carta & Pedidos</a>
+                <a href="#galeria" class="hover:text-italy-green transition">Galería</a>
+                <a href="#reservas" class="hover:text-italy-green transition">Reservas</a>
+                <a href="#ubicacion" class="hover:text-italy-green transition">Ubicación</a>
+                <a href="#opiniones" class="hover:text-italy-green transition">Reseñas</a>
+            </nav>
+
+            <!-- Cart Trigger & Mobile Menu Button -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleCartModal()" class="transition-click relative bg-italy-card hover:bg-italy-border text-white px-4 py-2.5 rounded-xl flex items-center space-x-2 border border-italy-border shadow-md group transform active:scale-95 duration-150">
+                    <i class="fa-solid fa-basket-shopping text-italy-green group-hover:scale-110 transition"></i>
+                    <span class="text-xs font-semibold font-italiana tracking-wide">Tu Pedido</span>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-italy-red text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow animate-pulse">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" aria-label="Abrir menú" class="transition-click md:hidden text-gray-300 hover:text-white p-2 text-xl focus:outline-none">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars transition-transform duration-300"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-italy-card border-b border-italy-border px-6 pt-4 pb-6 space-y-3 transform transition-all duration-300 opacity-0 -translate-y-4">
+            <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Carta & Pedidos</a>
+            <a href="#galeria" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Galería de Platos</a>
+            <a href="#reservas" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Reservas de Mesa</a>
+            <a href="#ubicacion" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Ubicación & Horarios</a>
+            <a href="#opiniones" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana">Reseñas de Comensales</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-italy-dark via-[#141820] to-italy-dark py-16 lg:py-24 overflow-hidden border-b border-italy-border text-center">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#008C45_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-5">
+            <!-- Official Logo in Hero -->
+            <div class="flex justify-center mb-2">
+                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo" class="h-28 sm:h-36 w-auto object-contain blend-logo drop-shadow-2xl">
+            </div>
+
+            <div class="space-y-2">
+                <p class="text-2xl sm:text-3xl font-script text-italy-red font-medium tracking-wide">
+                    El verdadero sabor italiano en Rengo
+                </p>
+            </div>
+
+            <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Disfrute nuestro plato de autor, pastas frescas artesanales, pizzas a la piedra, risottos, finos cortes y vinos selectos. Pida con despacho a domicilio o reserve su mesa para vivir la experiencia trattoria.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                <a href="#menu" class="transition-click w-full sm:w-auto bg-italy-red hover:bg-[#b01921] text-white font-medium px-8 py-3.5 rounded-xl shadow-xl shadow-italy-red/30 text-center flex items-center justify-center space-x-3 text-sm font-italiana tracking-wider">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Ver Carta & Pedir Delivery</span>
+                </a>
+                <a href="#reservas" class="transition-click w-full sm:w-auto bg-italy-card hover:bg-italy-border text-gray-200 font-medium px-7 py-3.5 rounded-xl border border-italy-border text-center flex items-center justify-center space-x-3 text-sm font-italiana tracking-wider">
+                    <i class="fa-regular fa-calendar-check text-italy-green"></i>
+                    <span>Reservar Mesa</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REAL GALLERY CAROUSEL (LOCAL FIRST, THEN 5 DELICIOUS PREPARATIONS) -->
+    <section id="galeria" class="py-12 bg-italy-card/60 border-b border-italy-border">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
+                <div>
+                    <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Galería Real</span>
+                    <h3 class="text-xl sm:text-2xl font-italiana font-bold text-white">Nuestro Local & Preparaciones de Autor</h3>
+                </div>
+                <span class="text-xs text-gray-400 font-italiana mt-1 sm:mt-0"><i class="fa-solid fa-camera mr-1"></i> Fotografías reales Mi Piace</span>
+            </div>
+
+            <!-- Carousel Showcase -->
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-italy-border bg-black h-[280px] sm:h-[420px]">
+                <div id="carousel-slides" class="w-full h-full relative"></div>
+                
+                <button onclick="prevSlide()" aria-label="Foto anterior" class="transition-click absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+                <button onclick="nextSlide()" aria-label="Siguiente foto" class="transition-click absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Dot Indicators Bar -->
+            <div class="flex justify-center items-center space-x-2 mt-4" id="carousel-dots"></div>
+        </div>
+    </section>
+
+    <!-- COMPACT GOOGLE REVIEWS TICKER -->
+    <section id="opiniones" class="py-8 bg-italy-dark border-b border-italy-border">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-italy-card border border-italy-border p-6 rounded-2xl shadow-lg relative">
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-italy-border">
+                    <div class="flex items-center space-x-2">
+                        <div class="flex text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <span class="text-white font-bold text-xs font-italiana">4.5 / 5.0 (Más de 710 Reseñas Google)</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="prevReview()" aria-label="Reseña anterior" class="transition-click w-7 h-7 rounded-lg bg-italy-dark hover:bg-italy-border text-white flex items-center justify-center border border-italy-border text-xs"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button onclick="nextReview()" aria-label="Siguiente reseña" class="transition-click w-7 h-7 rounded-lg bg-italy-dark hover:bg-italy-border text-white flex items-center justify-center border border-italy-border text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div id="rotating-review-content" class="min-h-[75px] flex flex-col justify-between space-y-2 transition-all duration-700 ease-in-out opacity-0 transform translate-y-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARTA SECTION -->
+    <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Nuestra Carta Oficial</span>
+            <h2 class="text-3xl sm:text-4xl font-italiana font-bold text-white mt-1">Carta de Platillos y Bebidas</h2>
+            <p class="text-gray-400 mt-2 text-xs font-italiana">Tradición gastronómica italiana con los mejores ingredientes de la región.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10" id="menu-filters">
+            <button onclick="filterMenu('all', event)" class="transition-click menu-tab active-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-red text-white shadow-lg font-italiana">Todo</button>
+            <button onclick="filterMenu('pizzas', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Pizzas & Calzone</button>
+            <button onclick="filterMenu('pastas', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Pastas & Salsas</button>
+            <button onclick="filterMenu('carnes', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Carnes & Risottos</button>
+            <button onclick="filterMenu('picadas', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Para Picar & Ensaladas</button>
+            <button onclick="filterMenu('burgers', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Burgers & Sándwiches</button>
+            <button onclick="filterMenu('postres', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Postres & Cafetería</button>
+            <button onclick="filterMenu('bebestibles', event)" class="transition-click menu-tab px-4 py-2 rounded-xl font-medium text-xs bg-italy-card hover:bg-italy-border text-gray-300 border border-italy-border font-italiana">Vinos & Tragos</button>
+        </div>
+
+        <!-- Menu Grid -->
+        <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"></div>
+    </section>
+
+    <!-- UBICACIÓN & HORARIOS -->
+    <section id="ubicacion" class="py-16 bg-italy-card border-t border-b border-italy-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Ubicación y Cómo Llegar</span>
+                        <h2 class="text-3xl font-italiana font-bold text-white mt-1">Encuéntranos en Rengo</h2>
+                        <p class="text-gray-300 mt-2 text-sm font-italiana">Visítenos en pleno centro, frente a la alameda con palmeras.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 bg-italy-dark border border-italy-border p-4 rounded-xl">
+                            <div class="text-italy-red text-xl mt-1"><i class="fa-solid fa-map-pin"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm font-italiana">Dirección</h4>
+                                <p class="text-xs text-gray-300">José Bisquertt 284, Loc 4, Rengo, Región de O'Higgins, Chile.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 bg-italy-dark border border-italy-border p-4 rounded-xl">
+                            <div class="text-amber-400 text-xl mt-1"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm font-italiana">Horarios de Atención</h4>
+                                <p class="text-xs text-gray-300">Lunes a Domingo: 12:30 PM – 12:00 AM (Medianoche)</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 bg-italy-dark border border-italy-border p-4 rounded-xl">
+                            <div class="text-italy-green text-xl mt-1"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm font-italiana">Contacto & WhatsApp</h4>
+                                <p class="text-xs text-gray-300">Atención rápida y pedidos directos vía WhatsApp.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-italy-border h-[380px] relative">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.016886475871!2d-70.8655!3d-34.4167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x966373b52d6a5e11%3A0x8992c649987819e9!2sJos%C3%A9%20Bisquertt%20284%2C%20Rengo%2C%20O'Higgins!5e0!3m2!1ses!2scl!4v1700000000000!5m2!1ses!2scl" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Mapa de Ubicación Mi Piace Rengo">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVAS DE MESA SECTION -->
+    <section id="reservas" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-italy-card border border-italy-border rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <div class="text-center max-w-xl mx-auto mb-8 space-y-2">
+                <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Reserva en Línea</span>
+                <h2 class="text-3xl font-italiana font-bold text-white">Reserve su Mesa</h2>
+                <p class="text-gray-400 text-sm font-italiana">Indique la fecha, hora y número de comensales para asegurar su lugar.</p>
+            </div>
+
+            <form onsubmit="submitReservation(event)" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="res-name" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Nombre y Apellido *</label>
+                        <input type="text" id="res-name" required placeholder="Ej. Juan Pérez" class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green">
+                    </div>
+                    <div>
+                        <label for="res-phone" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Teléfono de Contacto *</label>
+                        <input type="text" id="res-phone" required placeholder="Ej. +569..." class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div>
+                        <label for="res-date" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Fecha de Reserva *</label>
+                        <input type="date" id="res-date" required class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green">
+                    </div>
+                    <div>
+                        <label for="res-time" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Hora Preferida *</label>
+                        <select id="res-time" required class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green">
+                            <option value="13:00">13:00 hrs (Almuerzo)</option>
+                            <option value="14:00">14:00 hrs (Almuerzo)</option>
+                            <option value="15:00">15:00 hrs (Almuerzo tardío)</option>
+                            <option value="19:30">19:30 hrs (Cena)</option>
+                            <option value="20:30">20:30 hrs (Cena)</option>
+                            <option value="21:30">21:30 hrs (Cena nocturna)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="res-guests" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Cantidad de Personas *</label>
+                        <select id="res-guests" required class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green">
+                            <option value="2 personas">2 Personas (Pareja)</option>
+                            <option value="4 personas">4 Personas</option>
+                            <option value="6 personas">6 Personas (Familiar)</option>
+                            <option value="8+ personas">8 o más Personas (Grupo)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="res-notes" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Comentarios o Requerimientos Especiales</label>
+                    <textarea id="res-notes" rows="2" placeholder="Celebración de cumpleaños, silla para niños, mesa en terraza o interior..." class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green resize-none"></textarea>
+                </div>
+
+                <button type="submit" class="transition-click w-full bg-italy-red hover:bg-[#b01921] text-white font-medium py-4 rounded-xl shadow-xl shadow-italy-red/20 flex items-center justify-center space-x-2 text-base font-italiana tracking-wider">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Confirmar Reserva por WhatsApp</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER WITH LOGO -->
+    <footer class="bg-italy-dark border-t border-italy-border py-10 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo Logo" class="h-12 w-auto object-contain blend-logo">
+            </div>
+            <div class="text-center text-xs font-italiana">
+                <p class="text-gray-400">© 2014 - 2026 Mi Piace Rengo. Todos los derechos reservados.</p>
+                <p class="text-gray-500 mt-1">Trattoria Italiana • Rengo, Chile.</p>
+            </div>
+            <div class="flex justify-center md:justify-end space-x-3">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mi Piace" class="transition-click w-10 h-10 rounded-xl bg-italy-card border border-italy-border flex items-center justify-center text-gray-300 hover:text-italy-green hover:border-italy-green"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook Mi Piace" class="transition-click w-10 h-10 rounded-xl bg-italy-card border border-italy-border flex items-center justify-center text-gray-300 hover:text-italy-green hover:border-italy-green"><i class="fa-brands fa-facebook-f"></i></a>
+                <a id="footer-wa" href="https://wa.me/56900000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Mi Piace" class="transition-click w-10 h-10 rounded-xl bg-italy-card border border-italy-border flex items-center justify-center text-gray-300 hover:text-italy-green hover:border-italy-green"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FIXED FLOATING WHATSAPP BUTTON -->
+    <a id="floating-wa" href="https://wa.me/56900000000?text=Hola,%20quisiera%20hacer%20una%20consulta%20o%20pedido%20en%20Mi%20Piace%20Rengo." target="_blank" rel="noopener noreferrer" class="transition-click fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#20ba5a] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-3xl transform hover:scale-110" title="Chatear por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- CART / CHECKOUT MODAL -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-italy-card border border-italy-border w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] transform scale-95 transition-transform duration-300" id="cart-modal-content">
+            <div class="px-6 py-4 border-b border-italy-border flex items-center justify-between bg-italy-dark">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-basket-shopping text-italy-green"></i>
+                    <h3 class="font-italiana font-bold text-lg text-white">Tu Pedido / Carrito</h3>
+                </div>
+                <button onclick="toggleCartModal()" aria-label="Cerrar carrito" class="transition-click text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 space-y-4" id="cart-items-container"></div>
+
+            <div class="p-6 border-t border-italy-border bg-italy-dark space-y-4">
+                <div class="grid grid-cols-2 gap-2 p-1 bg-italy-card rounded-xl border border-italy-border">
+                    <button onclick="setFulfillment('delivery')" id="btn-delivery" class="transition-click py-2.5 rounded-lg text-xs font-semibold bg-italy-red text-white shadow font-italiana transition-all duration-200">
+                        <i class="fa-solid fa-motorcycle mr-1"></i> Despacho Delivery
+                    </button>
+                    <button onclick="setFulfillment('pickup')" id="btn-pickup" class="transition-click py-2.5 rounded-lg text-xs font-semibold text-gray-300 hover:text-white font-italiana transition-all duration-200">
+                        <i class="fa-solid fa-bag-shopping mr-1"></i> Retiro en Local
+                    </button>
+                </div>
+
+                <div class="space-y-2.5">
+                    <input type="text" id="customer-name" placeholder="Tu Nombre y Apellido *" class="w-full bg-italy-card border border-italy-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-italy-green">
+                    <input type="text" id="customer-phone" placeholder="Teléfono de contacto (Ej: +569...) *" class="w-full bg-italy-card border border-italy-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-italy-green">
+                    <div id="address-field-wrapper" class="transition-all duration-300">
+                        <input type="text" id="customer-address" placeholder="Dirección exacta en Rengo (Calle, Número) *" class="w-full bg-italy-card border border-italy-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-italy-green">
+                    </div>
+                    <textarea id="customer-notes" placeholder="Alergias o instrucciones especiales (Opcional)" rows="2" class="w-full bg-italy-card border border-italy-border rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-italy-green resize-none"></textarea>
+                </div>
+
+                <div class="space-y-1.5 pt-2 border-t border-italy-border text-xs text-gray-300">
+                    <div class="flex justify-between">
+                        <span>Subtotal productos:</span>
+                        <span id="cart-subtotal" class="font-semibold text-white">$0</span>
+                    </div>
+                    <div class="flex justify-between transition-all duration-300" id="delivery-fee-row">
+                        <span>Cargo Delivery Rengo:</span>
+                        <span class="font-semibold text-italy-green">$2.500</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-italy-border/50">
+                        <span>Total Final:</span>
+                        <span id="cart-total" class="text-italy-red">$0</span>
+                    </div>
+                </div>
+
+                <button onclick="checkoutOrder()" class="transition-click w-full bg-italy-green hover:bg-[#007037] text-white font-medium py-3 rounded-xl shadow-lg shadow-italy-green/20 flex items-center justify-center space-x-2 text-sm font-italiana tracking-wider">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Enviar Pedido por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-italy-card border border-italy-green text-white px-5 py-3 rounded-xl shadow-2xl transform translate-y-32 transition duration-300 flex items-center space-x-3 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-italy-green text-lg"></i>
+        <span id="toast-message" class="text-xs font-medium font-italiana">Producto agregado al carrito</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // WhatsApp Phone Configuration
+        const WHATSAPP_PHONE = "56900000000"; // Cambiar por el teléfono oficial de Mi Piace Rengo si se requiere
+
+        // Real Images: Salón/Local first, then 5 food preparations
+        const carouselImages = [
+            { url: "assets/images/lugar.jpg", title: "Local & Salón Principal" },
+            { url: "assets/images/pizza.jpg", title: "Pizza Artesanal con Camarones" },
+            { url: "assets/images/chef-plato.jpg", title: "Plato de Autor & Ñoquis de Papa" },
+            { url: "assets/images/risotto.jpg", title: "Risotto Cremoso de la Casa" },
+            { url: "assets/images/ensalada.jpg", title: "Ensalada Gourmet Mi Piace" },
+            { url: "assets/images/pescado-papas.jpg", title: "Especialidad de la Casa con Papas Fritas" }
+        ];
+
+        let currentSlideIndex = 0;
+        let slideInterval;
+
+        function initCarousel() {
+            const container = document.getElementById('carousel-slides');
+            const dotsContainer = document.getElementById('carousel-dots');
+            if (!container || !dotsContainer) return;
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            carouselImages.forEach((img, idx) => {
+                const slide = document.createElement('div');
+                slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
+                slide.innerHTML = `
+                    <img src="${img.url}" alt="${img.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x500/181b22/ffffff?text=Mi+Piace+Rengo'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6">
+                        <span class="text-white text-sm sm:text-base font-italiana font-semibold bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-lg border border-white/10">${img.title}</span>
+                    </div>
+                `;
+                container.appendChild(slide);
+
+                const dot = document.createElement('button');
+                dot.setAttribute('aria-label', `Ir a foto ${idx + 1}`);
+                dot.className = `transition-click h-2.5 rounded-full transition-all duration-300 ${idx === 0 ? 'w-8 bg-italy-green' : 'w-2.5 bg-white/40 hover:bg-white/80'}`;
+                dot.onclick = () => goToSlide(idx);
+                dotsContainer.appendChild(dot);
+            });
+
+            updateCarouselDots();
+            startCarouselTimer();
+        }
+
+        function updateCarouselDots() {
+            const dots = document.getElementById('carousel-dots').children;
+            for (let i = 0; i < dots.length; i++) {
+                if (i === currentSlideIndex) {
+                    dots[i].className = "transition-click h-2.5 w-8 bg-italy-green rounded-full transition-all duration-300";
+                } else {
+                    dots[i].className = "transition-click h-2.5 w-2.5 bg-white/40 hover:bg-white/80 rounded-full transition-all duration-300";
+                }
+            }
+        }
+
+        function goToSlide(idx) {
+            const slides = document.getElementById('carousel-slides').children;
+            if (!slides || slides.length === 0) return;
+            slides[currentSlideIndex].classList.remove('opacity-100', 'z-10');
+            slides[currentSlideIndex].classList.add('opacity-0', 'z-0');
+
+            currentSlideIndex = idx;
+
+            slides[currentSlideIndex].classList.remove('opacity-0', 'z-0');
+            slides[currentSlideIndex].classList.add('opacity-100', 'z-10');
+            updateCarouselDots();
+            resetCarouselTimer();
+        }
+
+        function nextSlide() { goToSlide((currentSlideIndex + 1) % carouselImages.length); }
+        function prevSlide() { goToSlide((currentSlideIndex - 1 + carouselImages.length) % carouselImages.length); }
+        function startCarouselTimer() { slideInterval = setInterval(nextSlide, 5000); }
+        function resetCarouselTimer() { clearInterval(slideInterval); startCarouselTimer(); }
+
+        // Official Menu Data with real photo highlights
+        const menuData = [
+            { id: 1, name: "Napolitana (Pizza)", category: "pizzas", price: 9900, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
+            { id: 2, name: "Pizza Marinara (Veggie)", category: "pizzas", price: 9900, desc: "Base de salsa pomodoro, salsa de ajo, aceitunas sevillanas, tomates cherry, rúcula y aceite de albahaca." },
+            { id: 3, name: "Margarita con Aceitunas", category: "pizzas", price: 9900, desc: "Queso mozzarella, salsa pomodoro, tomates, aceitunas y salsa de albahaca." },
+            { id: 4, name: "Pepperoni", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro y pepperoni." },
+            { id: 5, name: "Verche", category: "pizzas", price: 12900, desc: "Queso mozzarella, queso parmesano, salsa pomodoro, jamón serrano artesanal, tomate salteado y rúcula fresca." },
+            { id: 6, name: "Funghi (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, champiñones, fondos de alcachofa y cebolla morada." },
+            { id: 7, name: "3 Quesos (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, queso parmesano, queso azul y salsa pomodoro." },
+            { id: 8, name: "Chilena (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, mechada de plateada y cebolla estofada." },
+            { id: 9, name: "Gambereti (Pizza con Camarones)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa bechamel, aceitunas, camarones seleccionados y sofrito al ajillo.", image: "assets/images/pizza.jpg", highlight: "Destacado" },
+            { id: 10, name: "Española", category: "pizzas", price: 12900, desc: "Queso mozzarella, chorizo español, pimentón y cebolla estofada." },
+            { id: 11, name: "Calzone Rosso", category: "pizzas", price: 5600, desc: "Base de salsa pomodoro de la casa, salsa de ajo, aceitunas sevillanas, tomates cherry, hojas verdes y aceite de albahaca." },
+            { id: 12, name: "Calzone Napolitano", category: "pizzas", price: 6200, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
+            { id: 13, name: "Calzone Gambereti", category: "pizzas", price: 7900, desc: "Queso mozzarella, salsa pomodoro, aceitunas, camarones y ajillo." },
+            { id: 14, name: "Fetuccini", category: "pastas", price: 4300, desc: "Pasta artesanal al huevo fresca." },
+            { id: 15, name: "Spaghetti", category: "pastas", price: 4300, desc: "Espagueti clásico de la casa." },
+            { id: 16, name: "Ñoquis de Papas con Carne Braceada", category: "pastas", price: 11900, desc: "Ñoquis artesanales de papa elaborados a mano, acompañados con tierno corte braseado y salsa de autor.", image: "assets/images/chef-plato.jpg", highlight: "Plato del Chef" },
+            { id: 17, name: "Ravioli Angus", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de carne mechada cocinada al vino tinto." },
+            { id: 18, name: "Ravioli Di Gamberi", category: "pastas", price: 10300, desc: "Pasta al huevo rellena de camarón, ricotta y ciboulette." },
+            { id: 19, name: "Ravioli Vegetariano", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de ricotta y espinacas." },
+            { id: 20, name: "Lasaña de Ragú a la Bolognesa", category: "pastas", price: 12900, desc: "Capas de láminas de pasta al huevo, rellenas de ragú de carne, salsa bechamel y queso gratinado." },
+            { id: 21, name: "Salsa De La Casa", category: "pastas", price: 6900, desc: "Mezcla equilibrada de salsa pomodoro y pesto genovés." },
+            { id: 22, name: "Salsa Pesto Genovés", category: "pastas", price: 5500, desc: "Albahaca fresca, aceite de oliva, nueces, parmesano, sal y pimienta." },
+            { id: 23, name: "Salsa Ragu de Carne", category: "pastas", price: 6200, desc: "Guiso tradicional italiano con carne picada, tocino ahumado, verduras, vino tinto y pulpa de tomate." },
+            { id: 24, name: "Salsa Funghi", category: "pastas", price: 6200, desc: "Champiñones salteados en mantequilla, callampas deshidratadas, salsa bechamel y toque trufado." },
+            { id: 25, name: "Lomo Vetado a la Parrilla", category: "carnes", price: 15900, desc: "Corte tierno a las brasas." },
+            { id: 26, name: "Asado de Tira de Cocción Lenta", category: "carnes", price: 14900, desc: "Asado de tira cocinado al vacío por 24 horas, suave y sabroso." },
+            { id: 27, name: "Filete a la Parrilla", category: "carnes", price: 16900, desc: "Filete tierno de vacuno en su punto perfecto." },
+            { id: 28, name: "Plateada Braceada", category: "carnes", price: 11900, desc: "Plateada braceada con salsa pomodoro y reducción de caldo." },
+            { id: 29, name: "Plato de Autor con Papas Fritas", category: "carnes", price: 13900, desc: "Filete dorado bañado en cremosa salsa blanca de la casa, acompañado de crocantes papas fritas.", image: "assets/images/pescado-papas.jpg", highlight: "Recomendado" },
+            { id: 30, name: "Risotto Frutti Di Mare", category: "carnes", price: 12900, desc: "Risotto con mix de mariscos, ostiones, camarones, calamar y langostino en reducción cremosa.", image: "assets/images/risotto.jpg", highlight: "Especialidad" },
+            { id: 31, name: "Risotto Tomates Alcachofa", category: "carnes", price: 12900, desc: "Arroz cremoso, tomates deshidratados en aceite de oliva y corazón de alcachofa." },
+            { id: 32, name: "Antipasto Mi Piace", category: "picadas", price: 12900, desc: "Salame, lomo embuchado, chorizo vela, prosciutto, queso cabra, aceitunas, hummus y tostadas." },
+            { id: 33, name: "Empanadillas de Carne (3 un.)", category: "picadas", price: 6600, desc: "Rellenas de pino de carne artesanal y queso fundido." },
+            { id: 34, name: "Camarones Alla Diabola", category: "picadas", price: 12400, desc: "Camarones al ajillo con un toque de ají cacho de cabra." },
+            { id: 35, name: "Carpaccio de Vacuno", category: "picadas", price: 12600, desc: "Finas láminas de carne, alcaparras, queso parmesano y limoneta." },
+            { id: 36, name: "Ensalada Gourmet Mi Piace", category: "picadas", price: 10900, desc: "Mix de hojas verdes, tomates cherry, cortes sellados, cebolla morada, queso y aderezo especial.", image: "assets/images/ensalada.jpg", highlight: "Frescura" },
+            { id: 37, name: "César de Pollo", category: "picadas", price: 9900, desc: "Mix de hojas verdes, tomates cherry, pollo grillado, parmesano y aderezo césar casero." },
+            { id: 38, name: "Burger Clásica", category: "burgers", price: 9400, desc: "Burger a la parrilla, cheddar, lechuga, tomate, pepinillos, cebolla morada y salsa tasty." },
+            { id: 39, name: "Burger Gringa", category: "burgers", price: 9900, desc: "Burger a la parrilla, cheddar, pepinillos dulces, aros de cebolla apanados, tocino y barbecue." },
+            { id: 40, name: "Ciabatta Prosciutto", category: "burgers", price: 8300, desc: "Prosciutto italiano, tomate deshidratado, queso de cabra y rúcula en pan ciabatta recién horneado." },
+            { id: 41, name: "Ciabatta Mechada Luco", category: "burgers", price: 8900, desc: "Plateada desmechada jugosa y abundante queso caliente." },
+            { id: 42, name: "Tiramisú de la Casa", category: "postres", price: 4900, desc: "Cremoso y equilibrado. Capas de mascarpone suave, café intenso, galletas de champaña en amaretto y cacao." },
+            { id: 43, name: "Panna Cotta Variedades", category: "postres", price: 4900, desc: "Textura sedosa, sabor limpio y final delicado con coulis de frutos del bosque." },
+            { id: 44, name: "Cheesecake Sabores Caseros", category: "postres", price: 4900, desc: "Base crocante, crema de queso suave y equilibrado entre dulzor y acidez." },
+            { id: 45, name: "Affogato", category: "postres", price: 5300, desc: "El encuentro perfecto entre un espresso caliente intenso y helado de vainilla con toque de amaretto." },
+            { id: 46, name: "Espresso Italiano", category: "postres", price: 1900, desc: "1 carga de café fresco de grano." },
+            { id: 47, name: "Café Latte", category: "postres", price: 2900, desc: "Abundante leche cremosa caliente y sirop a elección." },
+            { id: 48, name: "Mojito Tradicional", category: "bebestibles", price: 6200, desc: "Ron blanco, menta fresca, lima y soda." },
+            { id: 49, name: "Sour Peruano", category: "bebestibles", price: 8900, desc: "Pisco peruano, limón sutil macerado y amargo de angostura." },
+            { id: 50, name: "Vino Gran Reserva (Botella)", category: "bebestibles", price: 15900, desc: "Cabernet Sauvignon y Carmenere (Viña San José de Apalta)." }
+        ];
+
+        // Google Reviews Data
+        const reviewsData = [
+            { author: "Carla Trinchez", time: "Hace 8 meses", rating: 5, text: "Muy rico todo!! Las comidas son abundantes y con ingredientes frescos, los condimentos en la mesa eran varios y la atención es muy amable y cordial." },
+            { author: "Sergio Correa", time: "Hace 4 meses", rating: 5, text: "El mejor rinconcito italiano en Rengo. Todos los platos de buen nivel, sobre todo las pizzas y ensaladas. Recomendadísimo." },
+            { author: "María José Aravena", time: "Hace 1 semana", rating: 5, text: "La atención de Paolo excelente, bien preocupado por los clientes y atiende de maravilla sin duda vengan. Maravillosos platillos y postres." },
+            { author: "Estefanía Castillo", time: "Hace 2 años", rating: 5, text: "Muy grato ambiente en el local, la atención por parte de los chic@s muy buena, unas micheladas excelentes. Todo recomendado." },
+            { author: "Kissy Marileo", time: "Hace 11 meses", rating: 5, text: "Excelente la comida y el servicio muy amables, totalmente recomendado 👌 Miguel amable con demasiada disposición y gentileza." }
+        ];
+
+        let currentReviewIndex = 0;
+        let reviewInterval;
+
+        function renderReview() {
+            const container = document.getElementById('rotating-review-content');
+            if (!container) return;
+            const rev = reviewsData[currentReviewIndex];
+            container.style.opacity = 0;
+            container.style.transform = "translateY(6px)";
+            
+            setTimeout(() => {
+                container.innerHTML = `
+                    <p class="text-xs sm:text-sm text-gray-200 font-serif italic">"${rev.text}"</p>
+                    <div class="flex items-center justify-between text-[11px] text-gray-400">
+                        <span class="font-bold text-white font-italiana">${rev.author}</span>
+                        <span>Local Guide Google • ${rev.time}</span>
+                    </div>
+                `;
+                container.style.opacity = 1;
+                container.style.transform = "translateY(0)";
+            }, 300);
+        }
+
+        function nextReview() { 
+            currentReviewIndex = (currentReviewIndex + 1) % reviewsData.length; 
+            renderReview(); 
+            resetReviewTimer();
+        }
+        
+        function prevReview() { 
+            currentReviewIndex = (currentReviewIndex - 1 + reviewsData.length) % reviewsData.length; 
+            renderReview(); 
+            resetReviewTimer();
+        }
+
+        function startReviewTimer() {
+            reviewInterval = setInterval(() => {
+                currentReviewIndex = (currentReviewIndex + 1) % reviewsData.length;
+                renderReview();
+            }, 4000);
+        }
+
+        function resetReviewTimer() {
+            clearInterval(reviewInterval);
+            startReviewTimer();
+        }
+
+        // Render Menu Cards
+        function renderMenu(category = 'all') {
+            const grid = document.getElementById('menu-grid');
+            if (!grid) return;
+            grid.style.opacity = 0;
+            grid.style.transform = "translateY(10px)";
+
+            setTimeout(() => {
+                grid.innerHTML = '';
+                const filtered = category === 'all' ? menuData : menuData.filter(item => item.category === category);
+
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-italy-card border border-italy-border p-5 rounded-2xl shadow-xl flex flex-col justify-between hover:border-italy-green/50 transition duration-300 group';
+                    
+                    const imageHtml = item.image ? `
+                        <div class="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden mb-4 border border-italy-border bg-black">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            ${item.highlight ? `<span class="absolute top-2.5 right-2.5 bg-italy-red text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-italiana shadow">${item.highlight}</span>` : ''}
+                        </div>
+                    ` : '';
+
+                    card.innerHTML = `
+                        <div class="space-y-2">
+                            ${imageHtml}
+                            <div class="flex items-start justify-between gap-4">
+                                <h3 class="font-italiana font-bold text-base text-white group-hover:text-italy-green transition">${item.name}</h3>
+                                <span class="text-italy-red font-bold text-sm shrink-0">$${item.price.toLocaleString('es-CL')}</span>
+                            </div>
+                            <p class="text-xs text-gray-400 leading-relaxed">${item.desc}</p>
+                        </div>
+                        <div class="pt-3 mt-3 border-t border-italy-border/60 flex items-center justify-between">
+                            <span class="text-[10px] text-gray-500 uppercase tracking-wider font-medium font-italiana"><i class="fa-solid fa-check text-italy-green mr-1"></i> Disponible</span>
+                            <button onclick="addToCart(${item.id})" class="transition-click bg-italy-dark hover:bg-italy-red text-white text-xs font-semibold px-3.5 py-1.5 rounded-xl border border-italy-border hover:border-italy-red flex items-center space-x-1.5 font-italiana tracking-wide shadow">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Agregar</span>
+                            </button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                grid.style.opacity = 1;
+                grid.style.transform = "translateY(0)";
+            }, 200);
+        }
+
+        function filterMenu(cat, evt) {
+            document.querySelectorAll('.menu-tab').forEach(btn => {
+                btn.classList.remove('bg-italy-red', 'text-white', 'shadow-lg');
+                btn.classList.add('bg-italy-card', 'text-gray-300', 'border', 'border-italy-border');
+            });
+            const clickedBtn = evt ? evt.currentTarget : event.target;
+            if (clickedBtn) {
+                clickedBtn.classList.remove('bg-italy-card', 'text-gray-300', 'border', 'border-italy-border');
+                clickedBtn.classList.add('bg-italy-red', 'text-white', 'shadow-lg');
+            }
+            renderMenu(cat);
+        }
+
+        // Cart State
+        let cart = [];
+        let fulfillmentType = 'delivery';
+        const deliveryFee = 2500;
+
+        function setFulfillment(type) {
+            fulfillmentType = type;
+            const btnDel = document.getElementById('btn-delivery');
+            const btnPic = document.getElementById('btn-pickup');
+            const addressWrapper = document.getElementById('address-field-wrapper');
+            const feeRow = document.getElementById('delivery-fee-row');
+
+            if (type === 'delivery') {
+                btnDel.className = "transition-click py-2.5 rounded-lg text-xs font-semibold bg-italy-red text-white shadow font-italiana transition-all duration-200 scale-100";
+                btnPic.className = "transition-click py-2.5 rounded-lg text-xs font-semibold text-gray-300 hover:text-white font-italiana transition-all duration-200 scale-95 opacity-70";
+                addressWrapper.style.opacity = '1';
+                addressWrapper.style.maxHeight = '100px';
+                addressWrapper.style.pointerEvents = 'auto';
+                feeRow.style.opacity = '1';
+                feeRow.style.maxHeight = '40px';
+            } else {
+                btnPic.className = "transition-click py-2.5 rounded-lg text-xs font-semibold bg-italy-green text-white shadow font-italiana transition-all duration-200 scale-100";
+                btnDel.className = "transition-click py-2.5 rounded-lg text-xs font-semibold text-gray-300 hover:text-white font-italiana transition-all duration-200 scale-95 opacity-70";
+                addressWrapper.style.opacity = '0';
+                addressWrapper.style.maxHeight = '0px';
+                addressWrapper.style.pointerEvents = 'none';
+                feeRow.style.opacity = '0';
+                feeRow.style.maxHeight = '0px';
+            }
+            updateCartUI();
+        }
+
+        function addToCart(id) {
+            const product = menuData.find(p => p.id === id);
+            if (!product) return;
+            const existing = cart.find(item => item.id === id);
+            if (existing) { existing.qty += 1; } else { cart.push({ ...product, qty: 1 }); }
+            updateCartUI();
+            triggerCartAnimation();
+            showToast(`¡${product.name} agregado al pedido!`);
+        }
+
+        function triggerCartAnimation() {
+            const badge = document.getElementById('cart-badge');
+            badge.classList.add('scale-125', 'bg-italy-green');
+            setTimeout(() => badge.classList.remove('scale-125', 'bg-italy-green'), 300);
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10 text-gray-500 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-3xl text-gray-600"></i>
+                        <p class="text-xs font-italiana">Tu pedido o carrito está vacío.</p>
+                    </div>
+                `;
+                document.getElementById('cart-subtotal').innerText = '$0';
+                document.getElementById('cart-total').innerText = '$0';
+                return;
+            }
+
+            let subtotalPrice = 0;
+            cart.forEach(item => {
+                subtotalPrice += item.price * item.qty;
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between bg-italy-dark p-3 rounded-xl border border-italy-border';
+                row.innerHTML = `
+                    <div class="flex-1 pr-3">
+                        <h4 class="text-xs font-semibold text-white font-italiana">${item.name}</h4>
+                        <span class="text-[11px] text-italy-red font-medium">$${item.price.toLocaleString('es-CL')} c/u</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="changeQty(${item.id}, -1)" aria-label="Disminuir" class="transition-click w-6 h-6 bg-italy-card hover:bg-italy-border rounded-lg text-white text-xs flex items-center justify-center border border-italy-border"><i class="fa-solid fa-minus"></i></button>
+                        <span class="text-xs font-bold text-white w-5 text-center">${item.qty}</span>
+                        <button onclick="changeQty(${item.id}, 1)" aria-label="Aumentar" class="transition-click w-6 h-6 bg-italy-card hover:bg-italy-border rounded-lg text-white text-xs flex items-center justify-center border border-italy-border"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            const finalTotal = fulfillmentType === 'delivery' ? subtotalPrice + deliveryFee : subtotalPrice;
+            document.getElementById('cart-subtotal').innerText = `$${subtotalPrice.toLocaleString('es-CL')}`;
+            document.getElementById('cart-total').innerText = `$${finalTotal.toLocaleString('es-CL')}`;
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(p => p.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(p => p.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            const content = document.getElementById('cart-modal-content');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                    content.classList.add('scale-100');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', '-translate-y-4');
+                    icon.classList.add('rotate-90', 'text-italy-red');
+                }, 10);
+            } else {
+                menu.classList.add('opacity-0', '-translate-y-4');
+                icon.classList.remove('rotate-90', 'text-italy-red');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-32');
+            setTimeout(() => toast.classList.add('translate-y-32'), 3000);
+        }
+
+        // WhatsApp Checkout
+        function checkoutOrder() {
+            if (cart.length === 0) { showToast("El carrito está vacío."); return; }
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+            const notes = document.getElementById('customer-notes').value.trim();
+
+            if (!name || !phone || (fulfillmentType === 'delivery' && !address)) {
+                showToast("Por favor complete los campos obligatorios (*).");
+                return;
+            }
+
+            let message = `*¡Nuevo Pedido - Mi Piace Rengo!* 🇮🇹🍕\n\n`;
+            message += `*Tipo:* ${fulfillmentType === 'delivery' ? 'Despacho Delivery 🛵' : 'Retiro en Local 🛍️'}\n`;
+            message += `*Cliente:* ${name}\n`;
+            message += `*Teléfono:* ${phone}\n`;
+            if (fulfillmentType === 'delivery') message += `*Dirección:* ${address}\n`;
+            if (notes) message += `*Notas/Alergias:* ${notes}\n`;
+            message += `\n*Detalle del Pedido:*\n`;
+
+            let subtotal = 0;
+            cart.forEach(item => {
+                const sub = item.price * item.qty;
+                subtotal += sub;
+                message += `• ${item.qty}x ${item.name} ($${sub.toLocaleString('es-CL')})\n`;
+            });
+
+            const finalTotal = fulfillmentType === 'delivery' ? subtotal + deliveryFee : subtotal;
+            if (fulfillmentType === 'delivery') message += `\nSubtotal: $${subtotal.toLocaleString('es-CL')}\nCargo Delivery: $${deliveryFee.toLocaleString('es-CL')}\n`;
+            message += `\n*Total a Pagar:* $${finalTotal.toLocaleString('es-CL')}\n\n_Enviado desde la web oficial Mi Piace Rengo_`;
+
+            window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // WhatsApp Reservation
+        function submitReservation(e) {
+            e.preventDefault();
+            const name = document.getElementById('res-name').value.trim();
+            const phone = document.getElementById('res-phone').value.trim();
+            const date = document.getElementById('res-date').value.trim();
+            const time = document.getElementById('res-time').value;
+            const guests = document.getElementById('res-guests').value;
+            const notes = document.getElementById('res-notes').value.trim();
+
+            let message = `*¡Solicitud de Reserva - Mi Piace Rengo!* 🇮🇹✨\n\n`;
+            message += `*Nombre:* ${name}\n`;
+            message += `*Teléfono:* ${phone}\n`;
+            message += `*Fecha:* ${date}\n`;
+            message += `*Hora:* ${time}\n`;
+            message += `*Comensales:* ${guests}\n`;
+            if (notes) message += `*Comentarios:* ${notes}\n`;
+            message += `\n_Solicitado desde la web oficial Mi Piace Rengo_`;
+
+            window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
+            showToast("¡Redirigiendo a WhatsApp para confirmar su reserva!");
+        }
+
+        window.onload = function() {
+            initCarousel();
+            renderMenu('all');
+            renderReview();
+            startReviewTimer();
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('res-date');
+            if (dateInput) {
+                dateInput.min = today;
+                dateInput.value = today;
+            }
+        }
+    </script>
+</body>
+</html>
