@@ -106,7 +106,7 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-italy-card border-b border-italy-border px-6 pt-4 pb-6 space-y-3 transform transition-all duration-300 opacity-0 -translate-y-4">
             <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Carta & Pedidos</a>
-            <a href="#galeria" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Galería de Platos</a>
+            <a href="#galeria" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Galería del Local</a>
             <a href="#reservas" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Reservas de Mesa</a>
             <a href="#ubicacion" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana border-b border-italy-border/50">Ubicación & Horarios</a>
             <a href="#opiniones" onclick="toggleMobileMenu()" class="block py-2 text-gray-200 hover:text-italy-green font-medium font-italiana">Reseñas de Comensales</a>
@@ -133,7 +133,7 @@
             </div>
 
             <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Disfrute nuestro plato de autor, pastas frescas artesanales, pizzas a la piedra, risottos, carnes y vinos exclusivos. Pida con despacho a domicilio o reserve su mesa para vivir la experiencia trattoria.
+                Disfrute nuestro plato de autor, pastas frescas artesanales, pizzas a la piedra, carnes y vinos exclusivos. Pida con despacho a domicilio o reserve su mesa.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -149,26 +149,26 @@
         </div>
     </section>
 
-    <!-- REAL GALLERY CAROUSEL (LOCAL FIRST, THEN 5 FOOD PREPARATIONS) -->
-    <section id="galeria" class="py-12 bg-italy-card/60 border-b border-italy-border">
+    <!-- REAL GALLERY CAROUSEL (PLACE FIRST, THEN 5 FOOD IMAGES) WITH DOTS & NO TEXT CAPTION -->
+    <section id="galeria" class="py-10 bg-italy-card/60 border-b border-italy-border">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
                 <div>
                     <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Galería Real</span>
-                    <h3 class="text-xl sm:text-2xl font-italiana font-bold text-white">Nuestro Local & Preparaciones de Autor</h3>
+                    <h3 class="text-xl sm:text-2xl font-italiana font-bold text-white">Nuestro Local & Preparaciones</h3>
                 </div>
-                <span class="text-xs text-gray-400 font-italiana mt-1 sm:mt-0"><i class="fa-solid fa-camera mr-1"></i> Fotografías reales Mi Piace</span>
+                <span class="text-xs text-gray-400 font-italiana mt-1 sm:mt-0">Desliza o usa los controles</span>
             </div>
 
             <!-- Carousel Showcase -->
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-italy-border bg-black h-[280px] sm:h-[420px]">
+            <div class="relative rounded-2xl overflow-hidden shadow-xl border border-italy-border bg-black h-[280px] sm:h-[400px]">
                 <div id="carousel-slides" class="w-full h-full relative"></div>
                 
-                <button onclick="prevSlide()" aria-label="Foto anterior" class="transition-click absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
-                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                <button onclick="prevSlide()" aria-label="Foto anterior" class="transition-click absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-9 h-9 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
                 </button>
-                <button onclick="nextSlide()" aria-label="Siguiente foto" class="transition-click absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
-                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                <button onclick="nextSlide()" aria-label="Siguiente foto" class="transition-click absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-italy-green text-white w-9 h-9 rounded-full flex items-center justify-center border border-white/20 backdrop-blur z-20">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
                 </button>
             </div>
 
@@ -190,7 +190,7 @@
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star-half-stroke"></i>
                         </div>
-                        <span class="text-white font-bold text-xs font-italiana">4.5 / 5.0 (Más de 710 Reseñas Google)</span>
+                        <span class="text-white font-bold text-xs font-italiana">4.5 / 5.0 (710 Reseñas Google)</span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <button onclick="prevReview()" aria-label="Reseña anterior" class="transition-click w-7 h-7 rounded-lg bg-italy-dark hover:bg-italy-border text-white flex items-center justify-center border border-italy-border text-xs"><i class="fa-solid fa-chevron-left"></i></button>
@@ -202,12 +202,12 @@
         </div>
     </section>
 
-    <!-- CARTA SECTION -->
+    <!-- CARTA SECTION (WITHOUT IMAGES IN CARDS) -->
     <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-10">
             <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Nuestra Carta Oficial</span>
             <h2 class="text-3xl sm:text-4xl font-italiana font-bold text-white mt-1">Carta de Platillos y Bebidas</h2>
-            <p class="text-gray-400 mt-2 text-xs font-italiana">Tradición gastronómica italiana con los mejores ingredientes de la región.</p>
+            <p class="text-gray-400 mt-2 text-xs font-italiana">Auténtica gastronomía italiana y fusión en Rengo.</p>
         </div>
 
         <!-- Category Tabs -->
@@ -257,8 +257,8 @@
                         <div class="flex items-start space-x-4 bg-italy-dark border border-italy-border p-4 rounded-xl">
                             <div class="text-italy-green text-xl mt-1"><i class="fa-solid fa-phone"></i></div>
                             <div>
-                                <h4 class="font-semibold text-white text-sm font-italiana">Contacto & WhatsApp</h4>
-                                <p class="text-xs text-gray-300">Atención rápida y pedidos directos vía WhatsApp.</p>
+                                <h4 class="font-semibold text-white text-sm font-italiana">Contacto</h4>
+                                <p class="text-xs text-gray-300">WhatsApp de Pedidos y Consultas.</p>
                             </div>
                         </div>
                     </div>
@@ -286,7 +286,7 @@
             <div class="text-center max-w-xl mx-auto mb-8 space-y-2">
                 <span class="text-italy-green font-semibold text-xs uppercase tracking-widest font-italiana">Reserva en Línea</span>
                 <h2 class="text-3xl font-italiana font-bold text-white">Reserve su Mesa</h2>
-                <p class="text-gray-400 text-sm font-italiana">Indique la fecha, hora y número de comensales para asegurar su lugar.</p>
+                <p class="text-gray-400 text-sm font-italiana">Indique la fecha, hora y número de comensales para agilizar su llegada.</p>
             </div>
 
             <form onsubmit="submitReservation(event)" class="space-y-6">
@@ -330,7 +330,7 @@
 
                 <div>
                     <label for="res-notes" class="block text-xs font-semibold uppercase text-gray-400 mb-2 font-italiana">Comentarios o Requerimientos Especiales</label>
-                    <textarea id="res-notes" rows="2" placeholder="Celebración de cumpleaños, silla para niños, mesa en terraza o interior..." class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green resize-none"></textarea>
+                    <textarea id="res-notes" rows="2" placeholder="Celebración de cumpleaños, silla para niños, etc." class="w-full bg-italy-dark border border-italy-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-italy-green resize-none"></textarea>
                 </div>
 
                 <button type="submit" class="transition-click w-full bg-italy-red hover:bg-[#b01921] text-white font-medium py-4 rounded-xl shadow-xl shadow-italy-red/20 flex items-center justify-center space-x-2 text-base font-italiana tracking-wider">
@@ -351,7 +351,7 @@
                      class="h-12 w-auto object-contain blend-logo">
             </div>
             <div class="text-center text-xs font-italiana">
-                <p class="text-gray-400">© 2014 - 2026 Mi Piace Rengo. Todos los derechos reservados.</p>
+                <p class="text-gray-400">© 2014 - 2026 Mi Piace Rengo SpA. Todos los derechos reservados.</p>
                 <p class="text-gray-500 mt-1">Trattoria Italiana • Rengo, Chile.</p>
             </div>
             <div class="flex justify-center md:justify-end space-x-3">
@@ -433,25 +433,25 @@
         // WhatsApp Phone Configuration
         const WHATSAPP_PHONE = "56900000000";
 
-        // Helper to resolve image paths with fallback
-        function fixImgPath(el, fallbackName) {
-            if (!el.dataset.tried) {
-                el.dataset.tried = '1';
+        // Fallback helper for carousel images
+        function fixCarouselImg(el, fallbackName) {
+            if (!el.dataset.t) {
+                el.dataset.t = '1';
                 el.src = 'assets/images/' + fallbackName;
-            } else if (el.dataset.tried === '1') {
-                el.dataset.tried = '2';
+            } else if (el.dataset.t === '1') {
+                el.dataset.t = '2';
                 el.src = fallbackName;
             }
         }
 
-        // Real Images in images/ directory
+        // Real 6 Images: Local first, then 5 food preparations (with dots & NO text captions)
         const carouselImages = [
-            { url: "images/lugar.jpg", file: "lugar.jpg", title: "Local & Salón Principal" },
-            { url: "images/pizza.jpg", file: "pizza.jpg", title: "Pizza Artesanal con Camarones" },
-            { url: "images/chef-plato.jpg", file: "chef-plato.jpg", title: "Plato de Autor & Ñoquis de Papa" },
-            { url: "images/risotto.jpg", file: "risotto.jpg", title: "Risotto Cremoso de la Casa" },
-            { url: "images/ensalada.jpg", file: "ensalada.jpg", title: "Ensalada Gourmet Mi Piace" },
-            { url: "images/pescado-papas.jpg", file: "pescado-papas.jpg", title: "Especialidad de la Casa con Papas Fritas" }
+            { url: "images/lugar.jpg", file: "lugar.jpg" },
+            { url: "images/pizza.jpg", file: "pizza.jpg" },
+            { url: "images/chef-plato.jpg", file: "chef-plato.jpg" },
+            { url: "images/risotto.jpg", file: "risotto.jpg" },
+            { url: "images/ensalada.jpg", file: "ensalada.jpg" },
+            { url: "images/pescado-papas.jpg", file: "pescado-papas.jpg" }
         ];
 
         let currentSlideIndex = 0;
@@ -469,17 +469,15 @@
                 slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
                 slide.innerHTML = `
                     <img src="${img.url}" 
-                         onerror="fixImgPath(this, '${img.file}')" 
-                         alt="${img.title}" 
+                         onerror="fixCarouselImg(this, '${img.file}')" 
+                         alt="Mi Piace Rengo Galería" 
                          class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6">
-                        <span class="text-white text-sm sm:text-base font-italiana font-semibold bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-lg border border-white/10">${img.title}</span>
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                 `;
                 container.appendChild(slide);
 
                 const dot = document.createElement('button');
-                dot.setAttribute('aria-label', `Ir a foto ${idx + 1}`);
+                dot.setAttribute('aria-label', `Ir a diapositiva ${idx + 1}`);
                 dot.className = `transition-click h-2.5 rounded-full transition-all duration-300 ${idx === 0 ? 'w-8 bg-italy-green' : 'w-2.5 bg-white/40 hover:bg-white/80'}`;
                 dot.onclick = () => goToSlide(idx);
                 dotsContainer.appendChild(dot);
@@ -519,7 +517,7 @@
         function startCarouselTimer() { slideInterval = setInterval(nextSlide, 5000); }
         function resetCarouselTimer() { clearInterval(slideInterval); startCarouselTimer(); }
 
-        // Official Menu Data with real photo highlights in images/
+        // Official Menu Data (WITHOUT IMAGES in the menu items)
         const menuData = [
             { id: 1, name: "Napolitana (Pizza)", category: "pizzas", price: 9900, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
             { id: 2, name: "Pizza Marinara (Veggie)", category: "pizzas", price: 9900, desc: "Base de salsa pomodoro, salsa de ajo, aceitunas sevillanas, tomates cherry, rúcula y aceite de albahaca." },
@@ -529,14 +527,14 @@
             { id: 6, name: "Funghi (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, champiñones, fondos de alcachofa y cebolla morada." },
             { id: 7, name: "3 Quesos (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, queso parmesano, queso azul y salsa pomodoro." },
             { id: 8, name: "Chilena (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, mechada de plateada y cebolla estofada." },
-            { id: 9, name: "Gambereti (Pizza con Camarones)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa bechamel, aceitunas, camarones seleccionados y sofrito al ajillo.", image: "images/pizza.jpg", imgFile: "pizza.jpg", highlight: "Destacado" },
+            { id: 9, name: "Gambereti (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa bechamel, aceitunas, camarones y ajillo." },
             { id: 10, name: "Española", category: "pizzas", price: 12900, desc: "Queso mozzarella, chorizo español, pimentón y cebolla estofada." },
             { id: 11, name: "Calzone Rosso", category: "pizzas", price: 5600, desc: "Base de salsa pomodoro de la casa, salsa de ajo, aceitunas sevillanas, tomates cherry, hojas verdes y aceite de albahaca." },
             { id: 12, name: "Calzone Napolitano", category: "pizzas", price: 6200, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
             { id: 13, name: "Calzone Gambereti", category: "pizzas", price: 7900, desc: "Queso mozzarella, salsa pomodoro, aceitunas, camarones y ajillo." },
             { id: 14, name: "Fetuccini", category: "pastas", price: 4300, desc: "Pasta artesanal al huevo fresca." },
             { id: 15, name: "Spaghetti", category: "pastas", price: 4300, desc: "Espagueti clásico de la casa." },
-            { id: 16, name: "Ñoquis de Papas con Carne Braceada", category: "pastas", price: 11900, desc: "Ñoquis artesanales de papa elaborados a mano, acompañados con tierno corte braseado y salsa de autor.", image: "images/chef-plato.jpg", imgFile: "chef-plato.jpg", highlight: "Plato del Chef" },
+            { id: 16, name: "Ñoquis de Papas", category: "pastas", price: 6300, desc: "Ñoquis artesanales de papa." },
             { id: 17, name: "Ravioli Angus", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de carne mechada cocinada al vino tinto." },
             { id: 18, name: "Ravioli Di Gamberi", category: "pastas", price: 10300, desc: "Pasta al huevo rellena de camarón, ricotta y ciboulette." },
             { id: 19, name: "Ravioli Vegetariano", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de ricotta y espinacas." },
@@ -546,30 +544,30 @@
             { id: 23, name: "Salsa Ragu de Carne", category: "pastas", price: 6200, desc: "Guiso tradicional italiano con carne picada, tocino ahumado, verduras, vino tinto y pulpa de tomate." },
             { id: 24, name: "Salsa Funghi", category: "pastas", price: 6200, desc: "Champiñones salteados en mantequilla, callampas deshidratadas, salsa bechamel y toque trufado." },
             { id: 25, name: "Lomo Vetado a la Parrilla", category: "carnes", price: 15900, desc: "Corte tierno a las brasas." },
-            { id: 26, name: "Asado de Tira de Cocción Lenta", category: "carnes", price: 14900, desc: "Asado de tira cocinado al vacío por 24 horas, suave y sabroso." },
-            { id: 27, name: "Filete a la Parrilla", category: "carnes", price: 16900, desc: "Filete tierno de vacuno en su punto perfecto." },
-            { id: 28, name: "Plateada Braceada", category: "carnes", price: 11900, desc: "Plateada braceada con salsa pomodoro y reducción de caldo." },
-            { id: 29, name: "Plato de Autor con Papas Fritas", category: "carnes", price: 13900, desc: "Filete dorado bañado en cremosa salsa blanca de la casa, acompañado de crocantes papas fritas.", image: "images/pescado-papas.jpg", imgFile: "pescado-papas.jpg", highlight: "Recomendado" },
-            { id: 30, name: "Risotto Frutti Di Mare", category: "carnes", price: 12900, desc: "Risotto con mix de mariscos, ostiones, camarones, calamar y langostino en reducción cremosa.", image: "images/risotto.jpg", imgFile: "risotto.jpg", highlight: "Especialidad" },
-            { id: 31, name: "Risotto Tomates Alcachofa", category: "carnes", price: 12900, desc: "Arroz cremoso, tomates deshidratados en aceite de oliva y corazón de alcachofa." },
-            { id: 32, name: "Antipasto Mi Piace", category: "picadas", price: 12900, desc: "Salame, lomo embuchado, chorizo vela, prosciutto, queso cabra, aceitunas, hummus y tostadas." },
-            { id: 33, name: "Empanadillas de Carne (3 un.)", category: "picadas", price: 6600, desc: "Rellenas de pino de carne artesanal y queso fundido." },
+            { id: 26, name: "Asado de Tira de Cocción Lenta", category: "carnes", price: 14900, desc: "Asado de tira cocinado al vacío por 24 horas." },
+            { id: 27, name: "Filete a la Parrilla", category: "carnes", price: 16900, desc: "Filete tierno de vacuno." },
+            { id: 28, name: "Plateada Braceada", category: "carnes", price: 11900, desc: "Plateada braceada con salsa pomodoro." },
+            { id: 29, name: "Salmón con Crocante de Sésamo", category: "carnes", price: 13900, desc: "Con salsa de vino blanco, mantequilla y toque de limón." },
+            { id: 30, name: "Risotto Frutti Di Mare", category: "carnes", price: 12900, desc: "Risotto con salsa de mariscos (mix de mariscos, ostiones, camarones, calamar y langostino)." },
+            { id: 31, name: "Risotto Tomates Alcachofa", category: "carnes", price: 12900, desc: "Arroz cremoso, tomates deshidratados en aceite y corazón de alcachofa." },
+            { id: 32, name: "Antipasto", category: "picadas", price: 12900, desc: "Salame, lomo embuchado, chorizo vela, prosciutto, queso cabra, ahumado, aceitunas, hummus y tostadas." },
+            { id: 33, name: "Empanadillas de Carne (3 un.)", category: "picadas", price: 6600, desc: "Rellenas de pino de carne y queso." },
             { id: 34, name: "Camarones Alla Diabola", category: "picadas", price: 12400, desc: "Camarones al ajillo con un toque de ají cacho de cabra." },
             { id: 35, name: "Carpaccio de Vacuno", category: "picadas", price: 12600, desc: "Finas láminas de carne, alcaparras, queso parmesano y limoneta." },
-            { id: 36, name: "Ensalada Gourmet Mi Piace", category: "picadas", price: 10900, desc: "Mix de hojas verdes, tomates cherry, cortes sellados, cebolla morada, queso y aderezo especial.", image: "images/ensalada.jpg", imgFile: "ensalada.jpg", highlight: "Frescura" },
-            { id: 37, name: "César de Pollo", category: "picadas", price: 9900, desc: "Mix de hojas verdes, tomates cherry, pollo grillado, parmesano y aderezo césar casero." },
-            { id: 38, name: "Burger Clásica", category: "burgers", price: 9400, desc: "Burger a la parrilla, cheddar, lechuga, tomate, pepinillos, cebolla morada y salsa tasty." },
+            { id: 36, name: "Ensalada Mi Piace Rengo", category: "picadas", price: 10900, desc: "Mix de hojas verdes, tomate cherry, prosciutto, ñoquis fritos, parmesano y aderezo césar." },
+            { id: 37, name: "César de Pollo", category: "picadas", price: 9900, desc: "Mix de hojas verdes, tomates cherry, pollo grillado, parmesano y aderezo césar." },
+            { id: 38, name: "Burger Clásica", category: "burgers", price: 9400, desc: "Burger a la parrilla, cheddar, lechuga, tomate, pepinillos, cebolla morada y salsa tasty (Simple)." },
             { id: 39, name: "Burger Gringa", category: "burgers", price: 9900, desc: "Burger a la parrilla, cheddar, pepinillos dulces, aros de cebolla apanados, tocino y barbecue." },
-            { id: 40, name: "Ciabatta Prosciutto", category: "burgers", price: 8300, desc: "Prosciutto italiano, tomate deshidratado, queso de cabra y rúcula en pan ciabatta recién horneado." },
-            { id: 41, name: "Ciabatta Mechada Luco", category: "burgers", price: 8900, desc: "Plateada desmechada jugosa y abundante queso caliente." },
-            { id: 42, name: "Tiramisú de la Casa", category: "postres", price: 4900, desc: "Cremoso y equilibrado. Capas de mascarpone suave, café intenso, galletas de champaña en amaretto y cacao." },
-            { id: 43, name: "Panna Cotta Variedades", category: "postres", price: 4900, desc: "Textura sedosa, sabor limpio y final delicado con coulis de frutos del bosque." },
-            { id: 44, name: "Cheesecake Sabores Caseros", category: "postres", price: 4900, desc: "Base crocante, crema de queso suave y equilibrado entre dulzor y acidez." },
-            { id: 45, name: "Affogato", category: "postres", price: 5300, desc: "El encuentro perfecto entre un espresso caliente intenso y helado de vainilla con toque de amaretto." },
-            { id: 46, name: "Espresso Italiano", category: "postres", price: 1900, desc: "1 carga de café fresco de grano." },
-            { id: 47, name: "Café Latte", category: "postres", price: 2900, desc: "Abundante leche cremosa caliente y sirop a elección." },
-            { id: 48, name: "Mojito Tradicional", category: "bebestibles", price: 6200, desc: "Ron blanco, menta fresca, lima y soda." },
-            { id: 49, name: "Sour Peruano", category: "bebestibles", price: 8900, desc: "Pisco peruano, limón sutil macerado y amargo de angostura." },
+            { id: 40, name: "Ciabatta Prosciutto", category: "burgers", price: 8300, desc: "Prosciutto italiano, tomate deshidratado, queso de cabra y rúcula en pan ciabatta." },
+            { id: 41, name: "Ciabatta Mechada Luco", category: "burgers", price: 8900, desc: "Plateada desmechada y queso caliente." },
+            { id: 42, name: "Tiramisú de la Casa", category: "postres", price: 4900, desc: "Cremoso y equilibrado. Capas de queso crema, café intenso, galletas de champaña en amaretto y cacao." },
+            { id: 43, name: "Panna Cotta Variedades", category: "postres", price: 4900, desc: "Textura sedosa, sabor limpio y final delicado con variedad de salsas." },
+            { id: 44, name: "Cheesecake Sabores Caseros", category: "postres", price: 4900, desc: "Base crocante, queso crema suave y equilibrado entre dulzor y acidez." },
+            { id: 45, name: "Affogato", category: "postres", price: 5300, desc: "El encuentro perfecto entre espresso intenso y helado de vainilla con toque de amaretto." },
+            { id: 46, name: "Espresso", category: "postres", price: 1900, desc: "1 carga de café fresco." },
+            { id: 47, name: "Café Latte", category: "postres", price: 2900, desc: "Abundante leche caliente y sirop a elección." },
+            { id: 48, name: "Mojito Tradicional", category: "bebestibles", price: 6200, desc: "Ron, menta fresca, lima y soda." },
+            { id: 49, name: "Sour Peruano", category: "bebestibles", price: 8900, desc: "Pisco peruano, limón sutil y amargo de angostura." },
             { id: 50, name: "Vino Gran Reserva (Botella)", category: "bebestibles", price: 15900, desc: "Cabernet Sauvignon y Carmenere (Viña San José de Apalta)." }
         ];
 
@@ -629,7 +627,7 @@
             startReviewTimer();
         }
 
-        // Render Menu Cards with image support and resilient fallbacks
+        // Render Menu Cards (Clean, uniform, text-focused trattoria layout without individual images)
         function renderMenu(category = 'all') {
             const grid = document.getElementById('menu-grid');
             if (!grid) return;
@@ -642,21 +640,9 @@
 
                 filtered.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = 'bg-italy-card border border-italy-border p-5 rounded-2xl shadow-xl flex flex-col justify-between hover:border-italy-green/50 transition duration-300 group';
-                    
-                    const imageHtml = item.image ? `
-                        <div class="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden mb-4 border border-italy-border bg-black">
-                            <img src="${item.image}" 
-                                 onerror="fixImgPath(this, '${item.imgFile}')" 
-                                 alt="${item.name}" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            ${item.highlight ? `<span class="absolute top-2.5 right-2.5 bg-italy-red text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-italiana shadow">${item.highlight}</span>` : ''}
-                        </div>
-                    ` : '';
-
+                    card.className = 'bg-italy-card border border-italy-border p-5 rounded-2xl shadow-xl flex flex-col justify-between hover:border-italy-green/50 transition group';
                     card.innerHTML = `
                         <div class="space-y-2">
-                            ${imageHtml}
                             <div class="flex items-start justify-between gap-4">
                                 <h3 class="font-italiana font-bold text-base text-white group-hover:text-italy-green transition">${item.name}</h3>
                                 <span class="text-italy-red font-bold text-sm shrink-0">$${item.price.toLocaleString('es-CL')}</span>
@@ -665,7 +651,7 @@
                         </div>
                         <div class="pt-3 mt-3 border-t border-italy-border/60 flex items-center justify-between">
                             <span class="text-[10px] text-gray-500 uppercase tracking-wider font-medium font-italiana"><i class="fa-solid fa-check text-italy-green mr-1"></i> Disponible</span>
-                            <button onclick="addToCart(${item.id})" class="transition-click bg-italy-dark hover:bg-italy-red text-white text-xs font-semibold px-3.5 py-1.5 rounded-xl border border-italy-border hover:border-italy-red flex items-center space-x-1.5 font-italiana tracking-wide shadow">
+                            <button onclick="addToCart(${item.id})" class="transition-click bg-italy-dark hover:bg-italy-red text-white text-xs font-semibold px-3 py-1.5 rounded-xl border border-italy-border hover:border-italy-red flex items-center space-x-1.5 font-italiana tracking-wide">
                                 <i class="fa-solid fa-plus"></i>
                                 <span>Agregar</span>
                             </button>
