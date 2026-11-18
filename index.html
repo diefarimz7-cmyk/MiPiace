@@ -6,7 +6,7 @@
     <title>Mi Piace Rengo | Trattoria Italiana, Pastas, Pizzas & Delivery</title>
     <meta name="description" content="Mi Piace Rengo - Auténtica trattoria italiana en Rengo desde 2014. Pizzas a la piedra, pastas artesanales, risottos, carnes y delivery online.">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -75,7 +75,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Official Logo in Header -->
             <div class="flex items-center cursor-pointer group py-2" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo Logo" class="h-14 sm:h-16 w-auto object-contain blend-logo group-hover:scale-105 transition-transform duration-300">
+                <img src="images/logo.png" 
+                     onerror="if(!this.dataset.t){this.dataset.t=1;this.src='assets/images/logo.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='mi piace logo.png';}" 
+                     alt="Mi Piace Rengo Logo" 
+                     class="h-14 sm:h-16 w-auto object-contain blend-logo group-hover:scale-105 transition-transform duration-300">
             </div>
 
             <!-- Navigation Links (Desktop) -->
@@ -117,7 +120,10 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-5">
             <!-- Official Logo in Hero -->
             <div class="flex justify-center mb-2">
-                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo" class="h-28 sm:h-36 w-auto object-contain blend-logo drop-shadow-2xl">
+                <img src="images/logo.png" 
+                     onerror="if(!this.dataset.t){this.dataset.t=1;this.src='assets/images/logo.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='mi piace logo.png';}" 
+                     alt="Mi Piace Rengo" 
+                     class="h-28 sm:h-36 w-auto object-contain blend-logo drop-shadow-2xl">
             </div>
 
             <div class="space-y-2">
@@ -127,7 +133,7 @@
             </div>
 
             <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Disfrute nuestro plato de autor, pastas frescas artesanales, pizzas a la piedra, risottos, finos cortes y vinos selectos. Pida con despacho a domicilio o reserve su mesa para vivir la experiencia trattoria.
+                Disfrute nuestro plato de autor, pastas frescas artesanales, pizzas a la piedra, risottos, carnes y vinos exclusivos. Pida con despacho a domicilio o reserve su mesa para vivir la experiencia trattoria.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -143,7 +149,7 @@
         </div>
     </section>
 
-    <!-- REAL GALLERY CAROUSEL (LOCAL FIRST, THEN 5 DELICIOUS PREPARATIONS) -->
+    <!-- REAL GALLERY CAROUSEL (LOCAL FIRST, THEN 5 FOOD PREPARATIONS) -->
     <section id="galeria" class="py-12 bg-italy-card/60 border-b border-italy-border">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row items-center justify-between mb-6">
@@ -339,7 +345,10 @@
     <footer class="bg-italy-dark border-t border-italy-border py-10 text-gray-400 text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div class="flex items-center space-x-3">
-                <img src="assets/images/logo.png" onerror="this.src='mi piace logo.png'" alt="Mi Piace Rengo Logo" class="h-12 w-auto object-contain blend-logo">
+                <img src="images/logo.png" 
+                     onerror="if(!this.dataset.t){this.dataset.t=1;this.src='assets/images/logo.png';}else if(this.dataset.t=='1'){this.dataset.t=2;this.src='mi piace logo.png';}" 
+                     alt="Mi Piace Rengo Logo" 
+                     class="h-12 w-auto object-contain blend-logo">
             </div>
             <div class="text-center text-xs font-italiana">
                 <p class="text-gray-400">© 2014 - 2026 Mi Piace Rengo. Todos los derechos reservados.</p>
@@ -422,16 +431,27 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // WhatsApp Phone Configuration
-        const WHATSAPP_PHONE = "56900000000"; // Cambiar por el teléfono oficial de Mi Piace Rengo si se requiere
+        const WHATSAPP_PHONE = "56900000000";
 
-        // Real Images: Salón/Local first, then 5 food preparations
+        // Helper to resolve image paths with fallback
+        function fixImgPath(el, fallbackName) {
+            if (!el.dataset.tried) {
+                el.dataset.tried = '1';
+                el.src = 'assets/images/' + fallbackName;
+            } else if (el.dataset.tried === '1') {
+                el.dataset.tried = '2';
+                el.src = fallbackName;
+            }
+        }
+
+        // Real Images in images/ directory
         const carouselImages = [
-            { url: "assets/images/lugar.jpg", title: "Local & Salón Principal" },
-            { url: "assets/images/pizza.jpg", title: "Pizza Artesanal con Camarones" },
-            { url: "assets/images/chef-plato.jpg", title: "Plato de Autor & Ñoquis de Papa" },
-            { url: "assets/images/risotto.jpg", title: "Risotto Cremoso de la Casa" },
-            { url: "assets/images/ensalada.jpg", title: "Ensalada Gourmet Mi Piace" },
-            { url: "assets/images/pescado-papas.jpg", title: "Especialidad de la Casa con Papas Fritas" }
+            { url: "images/lugar.jpg", file: "lugar.jpg", title: "Local & Salón Principal" },
+            { url: "images/pizza.jpg", file: "pizza.jpg", title: "Pizza Artesanal con Camarones" },
+            { url: "images/chef-plato.jpg", file: "chef-plato.jpg", title: "Plato de Autor & Ñoquis de Papa" },
+            { url: "images/risotto.jpg", file: "risotto.jpg", title: "Risotto Cremoso de la Casa" },
+            { url: "images/ensalada.jpg", file: "ensalada.jpg", title: "Ensalada Gourmet Mi Piace" },
+            { url: "images/pescado-papas.jpg", file: "pescado-papas.jpg", title: "Especialidad de la Casa con Papas Fritas" }
         ];
 
         let currentSlideIndex = 0;
@@ -448,7 +468,10 @@
                 const slide = document.createElement('div');
                 slide.className = `absolute inset-0 transition-opacity duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`;
                 slide.innerHTML = `
-                    <img src="${img.url}" alt="${img.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x500/181b22/ffffff?text=Mi+Piace+Rengo'">
+                    <img src="${img.url}" 
+                         onerror="fixImgPath(this, '${img.file}')" 
+                         alt="${img.title}" 
+                         class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6">
                         <span class="text-white text-sm sm:text-base font-italiana font-semibold bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-lg border border-white/10">${img.title}</span>
                     </div>
@@ -496,7 +519,7 @@
         function startCarouselTimer() { slideInterval = setInterval(nextSlide, 5000); }
         function resetCarouselTimer() { clearInterval(slideInterval); startCarouselTimer(); }
 
-        // Official Menu Data with real photo highlights
+        // Official Menu Data with real photo highlights in images/
         const menuData = [
             { id: 1, name: "Napolitana (Pizza)", category: "pizzas", price: 9900, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
             { id: 2, name: "Pizza Marinara (Veggie)", category: "pizzas", price: 9900, desc: "Base de salsa pomodoro, salsa de ajo, aceitunas sevillanas, tomates cherry, rúcula y aceite de albahaca." },
@@ -506,14 +529,14 @@
             { id: 6, name: "Funghi (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, champiñones, fondos de alcachofa y cebolla morada." },
             { id: 7, name: "3 Quesos (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, queso parmesano, queso azul y salsa pomodoro." },
             { id: 8, name: "Chilena (Pizza)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa pomodoro, mechada de plateada y cebolla estofada." },
-            { id: 9, name: "Gambereti (Pizza con Camarones)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa bechamel, aceitunas, camarones seleccionados y sofrito al ajillo.", image: "assets/images/pizza.jpg", highlight: "Destacado" },
+            { id: 9, name: "Gambereti (Pizza con Camarones)", category: "pizzas", price: 12900, desc: "Queso mozzarella, salsa bechamel, aceitunas, camarones seleccionados y sofrito al ajillo.", image: "images/pizza.jpg", imgFile: "pizza.jpg", highlight: "Destacado" },
             { id: 10, name: "Española", category: "pizzas", price: 12900, desc: "Queso mozzarella, chorizo español, pimentón y cebolla estofada." },
             { id: 11, name: "Calzone Rosso", category: "pizzas", price: 5600, desc: "Base de salsa pomodoro de la casa, salsa de ajo, aceitunas sevillanas, tomates cherry, hojas verdes y aceite de albahaca." },
             { id: 12, name: "Calzone Napolitano", category: "pizzas", price: 6200, desc: "Queso mozzarella, salsa pomodoro, jamón, tomates y orégano." },
             { id: 13, name: "Calzone Gambereti", category: "pizzas", price: 7900, desc: "Queso mozzarella, salsa pomodoro, aceitunas, camarones y ajillo." },
             { id: 14, name: "Fetuccini", category: "pastas", price: 4300, desc: "Pasta artesanal al huevo fresca." },
             { id: 15, name: "Spaghetti", category: "pastas", price: 4300, desc: "Espagueti clásico de la casa." },
-            { id: 16, name: "Ñoquis de Papas con Carne Braceada", category: "pastas", price: 11900, desc: "Ñoquis artesanales de papa elaborados a mano, acompañados con tierno corte braseado y salsa de autor.", image: "assets/images/chef-plato.jpg", highlight: "Plato del Chef" },
+            { id: 16, name: "Ñoquis de Papas con Carne Braceada", category: "pastas", price: 11900, desc: "Ñoquis artesanales de papa elaborados a mano, acompañados con tierno corte braseado y salsa de autor.", image: "images/chef-plato.jpg", imgFile: "chef-plato.jpg", highlight: "Plato del Chef" },
             { id: 17, name: "Ravioli Angus", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de carne mechada cocinada al vino tinto." },
             { id: 18, name: "Ravioli Di Gamberi", category: "pastas", price: 10300, desc: "Pasta al huevo rellena de camarón, ricotta y ciboulette." },
             { id: 19, name: "Ravioli Vegetariano", category: "pastas", price: 8500, desc: "Pasta al huevo rellena de ricotta y espinacas." },
@@ -526,14 +549,14 @@
             { id: 26, name: "Asado de Tira de Cocción Lenta", category: "carnes", price: 14900, desc: "Asado de tira cocinado al vacío por 24 horas, suave y sabroso." },
             { id: 27, name: "Filete a la Parrilla", category: "carnes", price: 16900, desc: "Filete tierno de vacuno en su punto perfecto." },
             { id: 28, name: "Plateada Braceada", category: "carnes", price: 11900, desc: "Plateada braceada con salsa pomodoro y reducción de caldo." },
-            { id: 29, name: "Plato de Autor con Papas Fritas", category: "carnes", price: 13900, desc: "Filete dorado bañado en cremosa salsa blanca de la casa, acompañado de crocantes papas fritas.", image: "assets/images/pescado-papas.jpg", highlight: "Recomendado" },
-            { id: 30, name: "Risotto Frutti Di Mare", category: "carnes", price: 12900, desc: "Risotto con mix de mariscos, ostiones, camarones, calamar y langostino en reducción cremosa.", image: "assets/images/risotto.jpg", highlight: "Especialidad" },
+            { id: 29, name: "Plato de Autor con Papas Fritas", category: "carnes", price: 13900, desc: "Filete dorado bañado en cremosa salsa blanca de la casa, acompañado de crocantes papas fritas.", image: "images/pescado-papas.jpg", imgFile: "pescado-papas.jpg", highlight: "Recomendado" },
+            { id: 30, name: "Risotto Frutti Di Mare", category: "carnes", price: 12900, desc: "Risotto con mix de mariscos, ostiones, camarones, calamar y langostino en reducción cremosa.", image: "images/risotto.jpg", imgFile: "risotto.jpg", highlight: "Especialidad" },
             { id: 31, name: "Risotto Tomates Alcachofa", category: "carnes", price: 12900, desc: "Arroz cremoso, tomates deshidratados en aceite de oliva y corazón de alcachofa." },
             { id: 32, name: "Antipasto Mi Piace", category: "picadas", price: 12900, desc: "Salame, lomo embuchado, chorizo vela, prosciutto, queso cabra, aceitunas, hummus y tostadas." },
             { id: 33, name: "Empanadillas de Carne (3 un.)", category: "picadas", price: 6600, desc: "Rellenas de pino de carne artesanal y queso fundido." },
             { id: 34, name: "Camarones Alla Diabola", category: "picadas", price: 12400, desc: "Camarones al ajillo con un toque de ají cacho de cabra." },
             { id: 35, name: "Carpaccio de Vacuno", category: "picadas", price: 12600, desc: "Finas láminas de carne, alcaparras, queso parmesano y limoneta." },
-            { id: 36, name: "Ensalada Gourmet Mi Piace", category: "picadas", price: 10900, desc: "Mix de hojas verdes, tomates cherry, cortes sellados, cebolla morada, queso y aderezo especial.", image: "assets/images/ensalada.jpg", highlight: "Frescura" },
+            { id: 36, name: "Ensalada Gourmet Mi Piace", category: "picadas", price: 10900, desc: "Mix de hojas verdes, tomates cherry, cortes sellados, cebolla morada, queso y aderezo especial.", image: "images/ensalada.jpg", imgFile: "ensalada.jpg", highlight: "Frescura" },
             { id: 37, name: "César de Pollo", category: "picadas", price: 9900, desc: "Mix de hojas verdes, tomates cherry, pollo grillado, parmesano y aderezo césar casero." },
             { id: 38, name: "Burger Clásica", category: "burgers", price: 9400, desc: "Burger a la parrilla, cheddar, lechuga, tomate, pepinillos, cebolla morada y salsa tasty." },
             { id: 39, name: "Burger Gringa", category: "burgers", price: 9900, desc: "Burger a la parrilla, cheddar, pepinillos dulces, aros de cebolla apanados, tocino y barbecue." },
@@ -606,7 +629,7 @@
             startReviewTimer();
         }
 
-        // Render Menu Cards
+        // Render Menu Cards with image support and resilient fallbacks
         function renderMenu(category = 'all') {
             const grid = document.getElementById('menu-grid');
             if (!grid) return;
@@ -623,7 +646,10 @@
                     
                     const imageHtml = item.image ? `
                         <div class="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden mb-4 border border-italy-border bg-black">
-                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="${item.image}" 
+                                 onerror="fixImgPath(this, '${item.imgFile}')" 
+                                 alt="${item.name}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             ${item.highlight ? `<span class="absolute top-2.5 right-2.5 bg-italy-red text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-italiana shadow">${item.highlight}</span>` : ''}
                         </div>
                     ` : '';
